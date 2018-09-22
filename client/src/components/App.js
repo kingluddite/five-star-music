@@ -4,6 +4,9 @@ import './App.css';
 import { Query } from 'react-apollo';
 import { GET_ALL_SONGS } from '../queries';
 
+// custom components
+import SongItem from './Song/SongItem';
+
 class App extends Component {
   render() {
     return (
@@ -13,9 +16,15 @@ class App extends Component {
           {({ data, loading, error }) => {
             if (loading) return <div>Loading...</div>;
             if (error) return <div>Error</div>;
-            console.log(data);
+            // console.log(data);
 
-            return <p>Songs</p>;
+            return (
+              <ul>
+                {data.getAllSongs.map(song => (
+                  <SongItem key={song._id} {...song} />
+                ))}
+              </ul>
+            );
           }}
         </Query>
       </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
+import { withRouter } from 'react-router-dom';
 
 // graphql
 import { SIGNUP_USER } from '../../queries';
@@ -36,9 +37,12 @@ export class Signup extends Component {
   handleSubmit = (event, signupUser) => {
     event.preventDefault();
     // call our signupUser function
-    signupUser().then(({ data: { signupUser } }) => {
-      console.log(signupUser);
+    signupUser().then(async ({ data }) => {
+      // console.log(data);
+      localStorage.setItem('token', data.signupUser.token);
+      await this.props.refetch();
       this.clearState();
+      this.props.history.push('/');
     });
   };
 
@@ -114,4 +118,4 @@ export class Signup extends Component {
   }
 }
 
-export default Signup;
+export default withRouter(Signup);

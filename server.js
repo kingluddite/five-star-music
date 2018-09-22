@@ -1,31 +1,25 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
+// const bodyParser = require('body-parser');
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: "variables.env" });
 
 const PORT = process.env.PORT || 4444;
 
 // bring in GraphQL middleware
-const { graphiqlExpress, graphqlExpress } = require("apollo-server-express");
-const { makeExecutableSchema } = require("graphql-tools");
+const { ApolloServer } = require("apollo-server-express");
 
 // graphql
 const { typeDefs } = require("./schema");
 const { resolvers } = require("./resolvers");
-
-// create schemas
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers
-});
 
 // models
 const Artist = require("./models/Artist");
 const Song = require("./models/Song");
 const User = require("./models/User");
 
-// connect to db (add these lines)
+// connect to db
 mongoose
   .connect(
     process.env.MONGO_URI,
@@ -35,7 +29,7 @@ mongoose
     console.log("DB connected");
   })
   .catch(err => {
-    console.log("Error on start: " + err.stack);
+    console.log(`Error on start: ${err.stack}`);
     process.exit(1);
   });
 
@@ -49,22 +43,26 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use("/graphiql", graphiqlExpress({ endpointURL: "/graphql" }));
-
-// Connect schemas with GraphQL
-app.use(
-  "/graphql",
-  bodyParser.json(),
-  graphqlExpress({
-    schema,
-    context: {
-      // pass in mongoose models
-      Artist,
-      Song,
-      User
+// set up JWT authentication middleware
+app.use(async (req, res, next) => {
+  const token = req.headers.authorization;
+  if (token !== "null") {
+    try {
+      req.currentUser = jwt.verify(token, process.env.SECRET);
+    } catch (err) {
+      console.error(err);
     }
-  })
-);
+  }
+  next();
+});
+
+// Create Apollo Server
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: ({ req }) => ({ Artist, Song, User, currentUser: req.currentUser })
+});
+server.applyMiddleware({ app });
 
 app.listen(PORT, () => {
   console.log(`Server listening on PORT ${PORT}`);

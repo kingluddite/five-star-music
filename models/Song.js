@@ -14,6 +14,10 @@ const SongSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  category: {
+    type: String,
+    required: true
+  },
   // thumbnail: Buffer,
   // ratings: [
   //   {
@@ -33,6 +37,10 @@ const SongSchema = new Schema({
   username: {
     type: String
   }
+});
+
+SongSchema.index({
+  "$**": "text"
 });
 
 module.exports = mongoose.model("Song", SongSchema);

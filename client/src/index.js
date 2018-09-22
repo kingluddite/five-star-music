@@ -32,8 +32,8 @@ import Profile from './components/Profile/Profile';
 
 // Apollo client
 const client = new ApolloClient({
-  // uri: 'http://localhost:4444/graphql',
-  uri: 'https://fivestarsongs.herokuapp.com/graphql',
+  uri: 'http://localhost:4444/graphql',
+  // uri: 'https://fivestarsongs.herokuapp.com/graphql',
   fetchOptions: {
     credentials: 'include',
   },

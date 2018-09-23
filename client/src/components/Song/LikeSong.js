@@ -121,7 +121,10 @@ class LikeSong extends Component {
           >
             {likeSong =>
               username && (
-                <button onClick={() => this.handleClick(likeSong, unlikeSong)}>
+                <button
+                  onClick={() => this.handleClick(likeSong, unlikeSong)}
+                  className="like-button"
+                >
                   {liked ? 'Unlike' : 'Like'}
                 </button>
               )

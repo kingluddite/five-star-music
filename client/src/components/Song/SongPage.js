@@ -8,6 +8,7 @@ import { GET_SONG } from '../../queries';
 
 // custom components
 import LikeSong from '../Song/LikeSong';
+import Spinner from '../Spinner';
 
 class SongPage extends Component {
   static propTypes = {
@@ -23,17 +24,43 @@ class SongPage extends Component {
     return (
       <Query query={GET_SONG} variables={{ _id }}>
         {({ data, loading, error }) => {
-          if (loading) return <div>Loading...</div>;
+          if (loading) return <Spinner />;
           if (error) return <div>Error</div>;
           // console.log(data);
 
           return (
             <div className="App">
-              <h2>{data.getSong.title}</h2>
-              <p>Created Date: {data.getSong.createdDate}</p>
-              <p>Likes: {data.getSong.likes}</p>
-              <p>Created By: {data.getSong.username}</p>
-              <LikeSong _id={_id} />
+              <div
+                style={{
+                  background: `url(${
+                    data.getSong.imageUrl
+                  }) center center / cover no-repeat`,
+                }}
+                className="song-image"
+              />
+
+              <div className="song">
+                <div className="song-header">
+                  <h2 className="song-name">
+                    <strong>{data.getSong.title}</strong>
+                  </h2>
+                  <h5>
+                    <strong>{data.getSong.category}</strong>
+                  </h5>
+                  <p>Created By: {data.getSong.username}</p>
+                  <p>
+                    Likes: {data.getSong.likes}
+                    <span role="img" aria-label="heart">
+                      ❤️
+                    </span>
+                  </p>
+                </div>
+                <blockquote
+                  className="analogy-description"
+                  dangerouslySetInnerHTML={{ __html: data.getSong.description }}
+                />
+                <LikeSong _id={_id} />
+              </div>
             </div>
           );
         }}

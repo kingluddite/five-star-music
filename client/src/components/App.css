@@ -128,7 +128,17 @@ nav a:link {
   padding: 0.2em;
 }
 
-.Lunch {
+.Rock {
+  width: 20%;
+  margin: 20px;
+  z-index: 1;
+  padding: 7px;
+  color: white;
+  background: linear-gradient(to right, #b24592, #f15f79);
+  border-radius: 50px 120px 120px;
+}
+
+.Alt-Rock {
   width: 20%;
   margin: 20px;
   z-index: 1;
@@ -139,7 +149,7 @@ nav a:link {
   background: linear-gradient(to right, #514a9d, #24c6dc);
 }
 
-.Snack {
+.Country {
   width: 20%;
   margin: 20px;
   z-index: 1;
@@ -160,7 +170,7 @@ nav a:link {
   border-radius: 50px 120px 120px;
 }
 
-.Dinner {
+.Reggae {
   width: 20%;
   margin: 20px;
   z-index: 1;
@@ -170,14 +180,14 @@ nav a:link {
   border-radius: 50px 120px 120px;
 }
 
-/* Recipe Page */
+/* song Page */
 
-.recipe-image {
+.song-image {
   height: 60vh;
   width: 100%;
 }
 
-.recipe-image:after {
+.song-image:after {
   content: '';
   position: absolute;
   width: 100%;
@@ -186,27 +196,27 @@ nav a:link {
   transition: opacity 0.3s ease-in-out;
 }
 
-.recipe {
+.song {
   text-align: center;
   background: whitesmoke;
   padding: 1em;
 }
 
-.recipe h1 {
+.song h1 {
   font-size: 2.5rem;
   text-align: center;
 }
 
-.recipe-header {
+.song-header {
   overflow: hidden;
   background-image: url(https://bit.ly/2JqRbuI);
 }
 
-.recipe-header > p {
+.song-header > p {
   margin: 0;
 }
 
-.recipe-description {
+.song-description {
   font-size: 2rem;
   color: darkslategray;
   padding: 1em;
@@ -216,22 +226,22 @@ nav a:link {
   font-style: italic;
 }
 
-.recipe-name {
+.song-name {
   color: #1eaedb;
   text-decoration: underline;
   text-decoration-style: wavy;
 }
 
-.recipe-instructions {
+.song-instructions {
   text-align: left;
   padding: 0 2em;
 }
 
-.recipe-instructions * {
+.song-instructions * {
   padding-bottom: 0.5em;
 }
 
-.recipe-instructions__title {
+.song-instructions__title {
   font-weight: 200;
   letter-spacing: 2px;
   color: #1eaedb;
@@ -263,4 +273,68 @@ nav a:link {
 .spinner {
   text-align: center;
   padding: 5em;
+}
+
+/* Modal */
+
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  visibility: hidden;
+  backface-visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.modal.modal-open {
+  visibility: visible;
+  backface-visibility: visible;
+  opacity: 1;
+  z-index: 1;
+}
+
+.modal-inner {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  max-width: 35em;
+  padding: 1em 1.5em;
+  position: relative;
+  margin: 2em;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.35);
+}
+
+.modal-content-inner {
+  padding-top: 1em;
+  margin-bottom: 0;
+}
+
+.modal-content-inner input {
+  width: 500px;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.modal-buttons button {
+  margin-left: 1em;
+}
+
+.modal-buttons button:first-child {
+  margin-left: 0;
 }

@@ -16,7 +16,7 @@ const initialState = {
 class Signin extends Component {
   static propTypes = {
     refetch: PropTypes.func.isRequired,
-    history: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
   };
 
   state = {

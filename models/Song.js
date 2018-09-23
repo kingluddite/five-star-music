@@ -1,10 +1,22 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const SongSchema = new Schema({
   title: {
     type: String,
     required: true
+  },
+  imageUrl: {
+    type: String,
+    required: true
+  },
+  category: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String
   },
   // artist: {
   //   type: mongoose.Schema.Types.ObjectId,
@@ -13,10 +25,6 @@ const SongSchema = new Schema({
   createdDate: {
     type: Date,
     default: Date.now
-  },
-  category: {
-    type: String,
-    required: true
   },
   // thumbnail: Buffer,
   // ratings: [

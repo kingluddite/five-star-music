@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
 import { withRouter } from 'react-router-dom';
+// import Spinner from '../Spinner';
 
 // graphql
 import { SIGNUP_USER } from '../../queries';
@@ -71,7 +72,7 @@ class Signup extends Component {
           variables={{ username, email, password }}
         >
           {(signupUser, { data, loading, error }) => (
-            // if (loading) return <div>Loading...</div>;
+            // if (loading) return <Spinner />;
             // if (error) return <div>Error</div>;
             // console.log(data);
 

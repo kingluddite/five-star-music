@@ -20,14 +20,17 @@ import './index.css';
 // custom components
 import App from './components/App';
 import Navbar from './components/Navbar/Navbar';
+
 // auth
 import Signin from './components/Auth/Signin';
 import Signup from './components/Auth/Signup';
 import withSession from './components/withSession';
+
 // songs
 import AddSong from './components/Song/AddSong';
 import SongPage from './components/Song/SongPage';
 import Search from './components/Song/Search';
+
 // profile
 import Profile from './components/Profile/Profile';
 
@@ -48,7 +51,8 @@ const client = new ApolloClient({
   },
   onError: ({ networkError }) => {
     if (networkError) {
-      console.log('Network Error', networkError);
+      // console.log('Network Error', networkError);
+      localStorage.setItem('token', '');
       // if (networkError.statusCode === 401) {
       //   // localStorage.setItem('token', '');
       //   localStorage.removeItem('token');

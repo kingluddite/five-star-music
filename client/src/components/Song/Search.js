@@ -31,6 +31,7 @@ class Search extends Component {
               placeholder="Search for Songs"
               name="search"
               id="search"
+              className="search"
               onChange={async event => {
                 event.persist();
                 const { data } = await client.query({

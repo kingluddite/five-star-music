@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import CKEditor from 'react-ckeditor-component';
 
 // react router
 import { withRouter } from 'react-router-dom';
@@ -16,7 +17,9 @@ import withAuth from '../withAuth';
 
 const initialState = {
   title: '',
+  imageUrl: '',
   category: 'Alt Rock',
+  description: '',
   username: '',
 };
 
@@ -56,6 +59,11 @@ class AddSong extends Component {
     });
   };
 
+  handleEditorChange = event => {
+    const newContent = event.editor.getData();
+    this.setState({ description: newContent });
+  };
+
   handleSubmit = (event, addSong) => {
     event.preventDefault();
     addSong().then(({ data }) => {
@@ -66,8 +74,8 @@ class AddSong extends Component {
   };
 
   validateForm = () => {
-    const { title, category } = this.state;
-    const isInvalid = !title || !category;
+    const { title, imageUrl, category, description } = this.state;
+    const isInvalid = !title || !imageUrl || !category || !description;
     return isInvalid;
   };
 
@@ -87,12 +95,12 @@ class AddSong extends Component {
   };
 
   render() {
-    const { title, category, username } = this.state;
+    const { title, imageUrl, category, description, username } = this.state;
 
     return (
       <Mutation
         mutation={ADD_SONG}
-        variables={{ title, category, username }}
+        variables={{ title, imageUrl, category, description, username }}
         refetchQueries={() => [
           {
             query: GET_USER_SONGS,
@@ -113,6 +121,7 @@ class AddSong extends Component {
                   className="form"
                   onSubmit={event => this.handleSubmit(event, addSong)}
                 >
+                  <label htmlFor="title">Title</label>
                   <input
                     type="text"
                     name="title"
@@ -120,6 +129,15 @@ class AddSong extends Component {
                     onChange={this.handleChange}
                     value={title}
                   />
+                  <label htmlFor="imageUrl">Image URL</label>
+                  <input
+                    type="text"
+                    name="imageUrl"
+                    placeholder="Song Image"
+                    onChange={this.handleChange}
+                    value={imageUrl}
+                  />
+                  <label htmlFor="category">Category</label>
                   <select
                     name="category"
                     onChange={this.handleChange}
@@ -130,7 +148,18 @@ class AddSong extends Component {
                     <option value="Alt-Rock">Alt Rock</option>
                     <option value="Reggae">Reggae</option>
                   </select>
-
+                  <label htmlFor="description">Add Description</label>
+                  {/* <textarea */}
+                  {/*   name="description" */}
+                  {/*   placeholder="Add Description" */}
+                  {/*   onChange={this.handleChange} */}
+                  {/*   value={description} */}
+                  {/* /> */}
+                  <CKEditor
+                    name="description"
+                    content={description}
+                    events={{ change: this.handleEditorChange }}
+                  />
                   <button
                     type="submit"
                     className="primary-button"

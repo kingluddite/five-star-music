@@ -37,12 +37,14 @@ mongoose
 // initialize your app
 const app = express();
 
-const corsOptions = {
-  origin: "http://localhost:3000",
-  credentials: true
-};
-
-app.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: 'http://localhost:3000',
+//   credentials: true,
+// };
+//
+// app.use(cors(corsOptions));
+// we use this to remove possible cors issues
+app.use(cors("*"));
 
 // set up JWT authentication middleware
 app.use(async (req, res, next) => {

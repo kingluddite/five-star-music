@@ -99,10 +99,16 @@ exports.resolvers = {
   },
 
   Mutation: {
-    addSong: async (root, { title, category, username }, { Song }) => {
+    addSong: async (
+      root,
+      { title, imageUrl, category, description, username },
+      { Song }
+    ) => {
       const newSong = await new Song({
         title,
+        imageUrl,
         category,
+        description,
         username
       }).save();
       return newSong;
@@ -158,6 +164,19 @@ exports.resolvers = {
         password
       }).save();
       return { token: createToken(newUser, process.env.SECRET, "1hr") };
+    },
+
+    updateUserSong: async (
+      root,
+      { _id, title, imageUrl, category, description },
+      { Song }
+    ) => {
+      const updatedSong = await Song.findOneAndUpdate(
+        { _id },
+        { $set: { title, imageUrl, category, description } },
+        { new: true }
+      );
+      return updatedSong;
     },
 
     deleteUserSong: async (root, { _id }, { Song }) => {

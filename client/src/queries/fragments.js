@@ -5,6 +5,9 @@ export const songFragments = {
     fragment CompleteSong on Song {
       _id
       title
+      imageUrl
+      category
+      description
       createdDate
       likes
       username

@@ -36,8 +36,20 @@ export const SEARCH_SONGS = gql`
 
 // Song Mutations
 export const ADD_SONG = gql`
-  mutation($title: String!, $category: String!, $username: String) {
-    addSong(title: $title, category: $category, username: $username) {
+  mutation(
+    $title: String!
+    $imageUrl: String!
+    $category: String!
+    $description: String
+    $username: String
+  ) {
+    addSong(
+      title: $title
+      imageUrl: $imageUrl
+      category: $category
+      description: $description
+      username: $username
+    ) {
       ...CompleteSong
     }
   }
@@ -82,6 +94,9 @@ export const GET_USER_SONGS = gql`
     getUserSongs(username: $username) {
       _id
       title
+      imageUrl
+      category
+      description
       likes
     }
   }
@@ -108,6 +123,31 @@ export const DELETE_USER_SONG = gql`
   mutation($_id: ObjectID!) {
     deleteUserSong(_id: $_id) {
       _id
+    }
+  }
+`;
+
+export const UPDATE_USER_SONG = gql`
+  mutation(
+    $_id: ObjectID!
+    $title: String!
+    $imageUrl: String!
+    $category: String!
+    $description: String
+  ) {
+    updateUserSong(
+      _id: $_id
+      title: $title
+      imageUrl: $imageUrl
+      category: $category
+      description: $description
+    ) {
+      _id
+      title
+      imageUrl
+      category
+      description
+      likes
     }
   }
 `;

@@ -1,10 +1,15 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
 // custom components
 import Signout from '../Auth/Signout';
 
-export class NavbarAuth extends Component {
+class NavbarAuth extends Component {
+  static propTypes = {
+    session: PropTypes.object.isRequired,
+  };
+
   render() {
     const { session } = this.props;
     return (

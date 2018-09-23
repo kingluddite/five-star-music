@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 // graphql
 import { Query, Mutation } from 'react-apollo';
 import {
@@ -8,9 +11,11 @@ import {
   GET_CURRENT_USER,
 } from '../../queries';
 
-import { Link } from 'react-router-dom';
+class UserSongs extends Component {
+  static propTypes = {
+    username: PropTypes.string.isRequired,
+  };
 
-export class UserSongs extends Component {
   handleDelete = deleteUserSong => {
     const confirmDelete = window.confirm(
       'Are you sure you want to delete this song?'
@@ -75,16 +80,14 @@ export class UserSongs extends Component {
                       });
                     }}
                   >
-                    {(deleteUserSong, attrs = {}) => {
-                      return (
-                        <p
-                          className="delete-button"
-                          onClick={() => this.handleDelete(deleteUserSong)}
-                        >
-                          {attrs.loading ? 'deleting...' : 'X'}
-                        </p>
-                      );
-                    }}
+                    {(deleteUserSong, attrs = {}) => (
+                      <button
+                        className="delete-button"
+                        onClick={() => this.handleDelete(deleteUserSong)}
+                      >
+                        {attrs.loading ? 'deleting...' : 'X'}
+                      </button>
+                    )}
                   </Mutation>
                 </li>
               ))}

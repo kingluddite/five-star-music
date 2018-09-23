@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-export class SongItem extends Component {
+class SongItem extends Component {
+  static propTypes = {
+    _id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+  };
+
   render() {
     const { _id, title } = this.props;
     return (

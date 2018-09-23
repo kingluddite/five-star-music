@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import './App.css';
 
 import { Query } from 'react-apollo';
 import { GET_ALL_SONGS } from '../queries';
 
 // custom components
 import SongItem from './Song/SongItem';
+
+import './App.css';
 
 class App extends Component {
   render() {

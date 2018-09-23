@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
-export class UserInfo extends Component {
-  formatDate = date => {
-    const newDate = new Date(date).toLocaleDateString('en-US');
-    const newTime = new Date(date).toLocaleTimeString('en-US');
-    return `${newDate} at ${newTime}`;
+class UserInfo extends Component {
+  static propTypes = {
+    session: PropTypes.shape({
+      getCurrentUser: PropTypes.shape({
+        username: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+        joinDate: PropTypes.string.isRequired,
+        favorites: PropTypes.array,
+      }).isRequired,
+    }).isRequired,
   };
+  // formatDate = date => {
+  //   const newDate = new Date(date).toLocaleDateString('en-US');
+  //   const newTime = new Date(date).toLocaleTimeString('en-US');
+  //   return `${newDate} at ${newTime}`;
+  // };
+
   render() {
     const {
       username,
@@ -22,7 +34,6 @@ export class UserInfo extends Component {
         <p>Username: {username}</p>
         <p>Email: {email}</p>
         <p>Join Date: {moment(joinDate, 'x').format('MMMM MM, YYYY')}</p>
-        {/* <p>Join Date: {this.formatDate(joinDate)}</p> */}
         <ul>
           <h3>
             {username.toUpperCase()}

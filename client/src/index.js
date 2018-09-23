@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
 // react-router
@@ -75,6 +76,16 @@ const Root = ({ refetch, session }) => (
     </Fragment>
   </Router>
 );
+
+Root.propTypes = {
+  refetch: PropTypes.func,
+  session: PropTypes.object,
+};
+
+Root.defaultProps = {
+  refetch: undefined,
+  session: null,
+};
 
 const RootWithSession = withSession(Root);
 

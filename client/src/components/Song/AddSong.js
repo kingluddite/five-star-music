@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 // react router
 import { withRouter } from 'react-router-dom';
 
@@ -18,13 +20,19 @@ const initialState = {
   username: '',
 };
 
-export class AddSong extends Component {
-  state = {
-    ...initialState,
+class AddSong extends Component {
+  static propTypes = {
+    session: PropTypes.object,
+    history: PropTypes.object,
   };
 
-  clearState = () => {
-    this.setState({ ...initialState });
+  static defaultProps = {
+    session: null,
+    history: null,
+  };
+
+  state = {
+    ...initialState,
   };
 
   componentDidMount = () => {
@@ -34,6 +42,10 @@ export class AddSong extends Component {
         username: this.props.session.getCurrentUser.username,
       });
     }
+  };
+
+  clearState = () => {
+    this.setState({ ...initialState });
   };
 
   handleChange = event => {

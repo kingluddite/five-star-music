@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 // graphql
@@ -8,7 +9,15 @@ import { GET_SONG } from '../../queries';
 // custom components
 import LikeSong from '../Song/LikeSong';
 
-export class SongPage extends Component {
+class SongPage extends Component {
+  static propTypes = {
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
+  };
+
   render() {
     const { _id } = this.props.match.params;
     return (

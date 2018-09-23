@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { ApolloConsumer } from 'react-apollo';
 import { withRouter } from 'react-router-dom';
 
-export class Signout extends Component {
+class Signout extends Component {
+  static propTypes = {
+    history: PropTypes.object.isRequired,
+  };
+
   handleSignout = (client, history) => {
     // clear token
     localStorage.removeItem('token');
@@ -16,15 +21,13 @@ export class Signout extends Component {
 
     return (
       <ApolloConsumer>
-        {client => {
+        {client => (
           // console.log(client);
 
-          return (
-            <button onClick={() => this.handleSignout(client, history)}>
-              Signout
-            </button>
-          );
-        }}
+          <button onClick={() => this.handleSignout(client, history)}>
+            Signout
+          </button>
+        )}
       </ApolloConsumer>
     );
   }

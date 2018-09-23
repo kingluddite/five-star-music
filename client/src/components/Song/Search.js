@@ -7,7 +7,7 @@ import { SEARCH_SONGS } from '../../queries';
 // custom components
 import SearchItem from './SearchItem';
 
-export class Search extends Component {
+class Search extends Component {
   state = {
     searchResults: [],
   };
@@ -24,31 +24,29 @@ export class Search extends Component {
 
     return (
       <ApolloConsumer>
-        {client => {
-          return (
-            <div className="App">
-              <input
-                type="search"
-                placeholder="Search for Songs"
-                name="search"
-                id="search"
-                onChange={async event => {
-                  event.persist();
-                  const { data } = await client.query({
-                    query: SEARCH_SONGS,
-                    variables: { searchTerm: event.target.value },
-                  });
-                  this.handleChange(data);
-                }}
-              />
-              <ul>
-                {searchResults.map(song => (
-                  <SearchItem key={song._id} {...song} />
-                ))}
-              </ul>
-            </div>
-          );
-        }}
+        {client => (
+          <div className="App">
+            <input
+              type="search"
+              placeholder="Search for Songs"
+              name="search"
+              id="search"
+              onChange={async event => {
+                event.persist();
+                const { data } = await client.query({
+                  query: SEARCH_SONGS,
+                  variables: { searchTerm: event.target.value },
+                });
+                this.handleChange(data);
+              }}
+            />
+            <ul>
+              {searchResults.map(song => (
+                <SearchItem key={song._id} {...song} />
+              ))}
+            </ul>
+          </div>
+        )}
       </ApolloConsumer>
     );
   }

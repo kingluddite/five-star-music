@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
-export class NavbarUnAuth extends Component {
+class NavbarUnAuth extends Component {
   render() {
     return (
       <ul>

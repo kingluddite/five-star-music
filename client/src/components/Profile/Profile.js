@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 // custom components
 import UserInfo from './UserInfo';
 import UserSongs from './UserSongs';
 import withAuth from '../withAuth';
 
-export class Profile extends Component {
+class Profile extends Component {
+  static propTypes = {
+    session: PropTypes.object.isRequired,
+  };
+
   render() {
     const { session } = this.props;
     return (

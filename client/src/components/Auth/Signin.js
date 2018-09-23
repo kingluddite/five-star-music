@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
 import { withRouter } from 'react-router-dom';
 
@@ -11,7 +12,13 @@ const initialState = {
   username: '',
   password: '',
 };
-export class Signin extends Component {
+
+class Signin extends Component {
+  static propTypes = {
+    refetch: PropTypes.func.isRequired,
+    history: PropTypes.func.isRequired,
+  };
+
   state = {
     ...initialState,
   };
@@ -53,36 +60,34 @@ export class Signin extends Component {
       <div className="App">
         <h2 className="App">Signin</h2>
         <Mutation mutation={SIGNIN_USER} variables={{ username, password }}>
-          {(signinUser, { data, loading, error }) => {
-            return (
-              <form
-                className="form"
-                onSubmit={event => this.handleSubmit(event, signinUser)}
+          {(signinUser, { data, loading, error }) => (
+            <form
+              className="form"
+              onSubmit={event => this.handleSubmit(event, signinUser)}
+            >
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                onChange={this.handleChange}
+                value={username}
+              />
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                onChange={this.handleChange}
+                value={password}
+              />
+              <button
+                className="button-primary"
+                disabled={loading || this.validateForm()}
               >
-                <input
-                  type="text"
-                  name="username"
-                  placeholder="Username"
-                  onChange={this.handleChange}
-                  value={username}
-                />
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  onChange={this.handleChange}
-                  value={password}
-                />
-                <button
-                  className="button-primary"
-                  disabled={loading || this.validateForm()}
-                >
-                  Signin
-                </button>
-                {error && <Error error={error} />}
-              </form>
-            );
-          }}
+                Signin
+              </button>
+              {error && <Error error={error} />}
+            </form>
+          )}
         </Mutation>
       </div>
     );

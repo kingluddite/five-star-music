@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 // graphql
 import { Mutation } from 'react-apollo';
@@ -9,7 +10,19 @@ import { LIKE_SONG, UNLIKE_SONG, GET_SONG } from '../../queries';
 // custom components
 import withSession from '../withSession';
 
-export class LikeSong extends Component {
+class LikeSong extends Component {
+  static propTypes = {
+    session: PropTypes.shape({
+      getCurrentUser: PropTypes.object,
+    }),
+    _id: PropTypes.string.isRequired,
+    refetch: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    session: null,
+  };
+
   state = {
     username: '',
     liked: false,

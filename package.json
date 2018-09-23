@@ -35,7 +35,8 @@
     "graphql-tools": "^3.1.1",
     "jsonwebtoken": "^8.3.0",
     "moment": "^2.22.2",
-    "mongoose": "^5.2.8"
+    "mongoose": "^5.2.8",
+    "prop-types": "^15.6.2"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",

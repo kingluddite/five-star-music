@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
 import { withRouter } from 'react-router-dom';
 
@@ -15,7 +16,12 @@ const initialState = {
   passwordConfirmation: '',
 };
 
-export class Signup extends Component {
+class Signup extends Component {
+  static propTypes = {
+    refetch: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
+  };
+
   state = {
     ...initialState,
   };
@@ -64,54 +70,52 @@ export class Signup extends Component {
           mutation={SIGNUP_USER}
           variables={{ username, email, password }}
         >
-          {(signupUser, { data, loading, error }) => {
+          {(signupUser, { data, loading, error }) => (
             // if (loading) return <div>Loading...</div>;
             // if (error) return <div>Error</div>;
             // console.log(data);
 
-            return (
-              <form
-                className="form"
-                onSubmit={event => this.handleSubmit(event, signupUser)}
+            <form
+              className="form"
+              onSubmit={event => this.handleSubmit(event, signupUser)}
+            >
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                onChange={this.handleChange}
+                value={username}
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                onChange={this.handleChange}
+                value={email}
+              />
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                onChange={this.handleChange}
+                value={password}
+              />
+              <input
+                type="password"
+                name="passwordConfirmation"
+                placeholder="Confirm Password"
+                onChange={this.handleChange}
+                value={passwordConfirmation}
+              />
+              <button
+                className="button-primary"
+                disabled={loading || this.validateForm()}
               >
-                <input
-                  type="text"
-                  name="username"
-                  placeholder="Username"
-                  onChange={this.handleChange}
-                  value={username}
-                />
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email Address"
-                  onChange={this.handleChange}
-                  value={email}
-                />
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  onChange={this.handleChange}
-                  value={password}
-                />
-                <input
-                  type="password"
-                  name="passwordConfirmation"
-                  placeholder="Confirm Password"
-                  onChange={this.handleChange}
-                  value={passwordConfirmation}
-                />
-                <button
-                  className="button-primary"
-                  disabled={loading || this.validateForm()}
-                >
-                  Submit
-                </button>
-                {error && <Error error={error} />}
-              </form>
-            );
-          }}
+                Submit
+              </button>
+              {error && <Error error={error} />}
+            </form>
+          )}
         </Mutation>
       </div>
     );

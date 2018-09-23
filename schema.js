@@ -70,7 +70,6 @@ exports.typeDefs = gql`
       title: String!
       imageUrl: String!
       category: String!
-      category: String!
       description: String
     ): Song
   }

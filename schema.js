@@ -16,6 +16,7 @@ exports.typeDefs = gql`
     title: String!
     imageUrl: String!
     category: String!
+    youTubeUrl: String
     description: String
     createdDate: String
     likes: Int
@@ -53,6 +54,7 @@ exports.typeDefs = gql`
       title: String!
       imageUrl: String!
       category: String!
+      youTubeUrl: String
       description: String
       username: String
     ): Song
@@ -70,6 +72,7 @@ exports.typeDefs = gql`
       title: String!
       imageUrl: String!
       category: String!
+      youTubeUrl: String
       description: String
     ): Song
   }

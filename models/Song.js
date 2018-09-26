@@ -15,6 +15,9 @@ const SongSchema = new Schema({
     type: String,
     required: true
   },
+  youTubeUrl: {
+    type: String
+  },
   description: {
     type: String
   },

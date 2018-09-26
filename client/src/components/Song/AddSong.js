@@ -19,6 +19,7 @@ const initialState = {
   title: '',
   imageUrl: '',
   category: 'Alt Rock',
+  youTubeUrl: '',
   description: '',
   username: '',
 };
@@ -51,9 +52,17 @@ class AddSong extends Component {
     this.setState({ ...initialState });
   };
 
+  handleYouTubeChange = event => {
+    const { name, value } = event.target;
+    // "grab the series of characters not containing a slash" ([^/]*) at the end of the string ($). Then it grabs the matched characters from the returned match object by indexing into it ([0]); in a match object, the first entry is the whole matched string. No need for capture groups
+    const newYouTubeValue = /[^/]*$/.exec(value)[0];
+    this.setState({
+      [name]: newYouTubeValue,
+    });
+  };
+
   handleChange = event => {
     const { name, value } = event.target;
-    // console.log(name, ':', value);
     this.setState({
       [name]: value,
     });
@@ -68,14 +77,15 @@ class AddSong extends Component {
     event.preventDefault();
     addSong().then(({ data }) => {
       // console.log(data);
-      this.clearState();
-      this.props.history.push('/');
+      // this.clearState();
+      // this.props.history.push('/');
     });
   };
 
   validateForm = () => {
-    const { title, imageUrl, category, description } = this.state;
-    const isInvalid = !title || !imageUrl || !category || !description;
+    const { title, imageUrl, category, youTubeUrl, description } = this.state;
+    const isInvalid =
+      !title || !imageUrl || !category || !youTubeUrl || !description;
     return isInvalid;
   };
 
@@ -95,12 +105,26 @@ class AddSong extends Component {
   };
 
   render() {
-    const { title, imageUrl, category, description, username } = this.state;
+    const {
+      title,
+      imageUrl,
+      category,
+      youTubeUrl,
+      description,
+      username,
+    } = this.state;
 
     return (
       <Mutation
         mutation={ADD_SONG}
-        variables={{ title, imageUrl, category, description, username }}
+        variables={{
+          title,
+          imageUrl,
+          category,
+          youTubeUrl,
+          description,
+          username,
+        }}
         refetchQueries={() => [
           {
             query: GET_USER_SONGS,
@@ -112,7 +136,7 @@ class AddSong extends Component {
         {(addSong, { data, loading, error }) => {
           if (loading) return <div>Loading...</div>;
           if (error) return <div>Error</div>;
-          // console.log(data);
+          console.log(data);
 
           return (
             <div className="App">
@@ -148,6 +172,14 @@ class AddSong extends Component {
                     <option value="Alt-Rock">Alt Rock</option>
                     <option value="Reggae">Reggae</option>
                   </select>
+                  <label htmlFor="youTubeUrl">YouTube URL</label>
+                  <input
+                    type="text"
+                    name="youTubeUrl"
+                    placeholder="YouTube URL"
+                    onChange={this.handleYouTubeChange}
+                    value={youTubeUrl}
+                  />
                   <label htmlFor="description">Add Description</label>
                   {/* <textarea */}
                   {/*   name="description" */}

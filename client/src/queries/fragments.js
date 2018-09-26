@@ -7,6 +7,7 @@ export const songFragments = {
       title
       imageUrl
       category
+      youTubeUrl
       description
       createdDate
       likes

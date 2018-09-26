@@ -101,13 +101,14 @@ exports.resolvers = {
   Mutation: {
     addSong: async (
       root,
-      { title, imageUrl, category, description, username },
+      { title, imageUrl, category, youTubeUrl, description, username },
       { Song }
     ) => {
       const newSong = await new Song({
         title,
         imageUrl,
         category,
+        youTubeUrl,
         description,
         username
       }).save();
@@ -173,7 +174,7 @@ exports.resolvers = {
     ) => {
       const updatedSong = await Song.findOneAndUpdate(
         { _id },
-        { $set: { title, imageUrl, category, description } },
+        { $set: { title, imageUrl, category, youTubeUrl, description } },
         { new: true }
       );
       return updatedSong;

@@ -26,6 +26,7 @@ class EditSongModal extends Component {
           title: song.title,
           imageUrl: song.imageUrl,
           category: song.category,
+          youTubeUrl: song.youTubeUrl,
           description: song.description,
         }}
       >
@@ -62,6 +63,14 @@ class EditSongModal extends Component {
                     <option value="Country">Country</option>
                     <option value="Reggae">Reggae</option>
                   </select>
+                  <label htmlFor="youTubeUrl">YouTube URL</label>
+                  <input
+                    type="text"
+                    name="youTubeUrl"
+                    placeholder="YouTube URL"
+                    onChange={this.handleYouTubeChange}
+                    value={song.youTubeUrl}
+                  />
                   <label htmlFor="description">Description</label>
                   <textarea
                     name="description"

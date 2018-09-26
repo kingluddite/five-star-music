@@ -9,6 +9,7 @@ import { GET_SONG } from '../../queries';
 // custom components
 import LikeSong from '../Song/LikeSong';
 import Spinner from '../Spinner';
+import ReactYouTube from '../ThirdParty/ReactYouTube.js';
 
 class SongPage extends Component {
   static propTypes = {
@@ -41,6 +42,11 @@ class SongPage extends Component {
 
               <div className="song">
                 <div className="song-header">
+                  {data.getSong.youTubeUrl ? (
+                    <ReactYouTube videoId={data.getSong.youTubeUrl} />
+                  ) : (
+                    <h2>No Video Provided</h2>
+                  )}
                   <h2 className="song-name">
                     <strong>{data.getSong.title}</strong>
                   </h2>

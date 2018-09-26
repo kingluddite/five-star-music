@@ -59,6 +59,14 @@ class UserSongs extends Component {
     this.setState({ modal: false });
   };
 
+  handleYouTubeChange = event => {
+    const { name, value } = event.target;
+    const newYouTubeValue = /[^/]*$/.exec(value)[0];
+    this.setState({
+      [name]: newYouTubeValue,
+    });
+  };
+
   handleChange = event => {
     const { name, value } = event.target;
     // console.log(name, ':', value);
@@ -84,6 +92,7 @@ class UserSongs extends Component {
                 <EditSongModal
                   closeModal={this.closeModal}
                   handleChange={this.handleChange}
+                  handleYouTubeChange={this.handleYouTubeChange}
                   song={this.state}
                   handleSubmit={this.handleSubmit}
                 />

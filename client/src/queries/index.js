@@ -40,6 +40,7 @@ export const ADD_SONG = gql`
     $title: String!
     $imageUrl: String!
     $category: String!
+    $youTubeUrl: String
     $description: String
     $username: String
   ) {
@@ -47,6 +48,7 @@ export const ADD_SONG = gql`
       title: $title
       imageUrl: $imageUrl
       category: $category
+      youTubeUrl: $youTubeUrl
       description: $description
       username: $username
     ) {
@@ -96,6 +98,7 @@ export const GET_USER_SONGS = gql`
       title
       imageUrl
       category
+      youTubeUrl
       description
       likes
     }
@@ -133,6 +136,7 @@ export const UPDATE_USER_SONG = gql`
     $title: String!
     $imageUrl: String!
     $category: String!
+    $youTubeUrl: String
     $description: String
   ) {
     updateUserSong(
@@ -140,12 +144,14 @@ export const UPDATE_USER_SONG = gql`
       title: $title
       imageUrl: $imageUrl
       category: $category
+      youTubeUrl: $youTubeUrl
       description: $description
     ) {
       _id
       title
       imageUrl
       category
+      youTubeUrl
       description
       likes
     }
